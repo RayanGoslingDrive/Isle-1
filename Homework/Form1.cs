@@ -30,22 +30,21 @@ namespace Homework
 
             int N;
             int M;     
-            string[] s = textBox1.Text.Replace("\r","").Split('\n');
-            List<string> l = new List<string>();
-            try
-            {
-                N = Convert.ToInt32(s[0]);
-                M = Convert.ToInt32(s[1]);
-                for (int i = 2; i < N + 2; i++)
-                {
-                    l.Add(s[i]);
-                }
-            }catch(Exception ex) 
-            {
-                textBox2.Text = ex.Message;
-                return;
-            }
             
+            List<string> l = textBox1.Text.Replace("\r", "").Split('\n').ToList();
+
+            N = Convert.ToInt32(l[0]);
+            l.RemoveAt(0);
+            M = Convert.ToInt32(l[0]);
+            l.RemoveAt(0);
+            for (int i = N; i < l.Count(); i++)
+            {
+                if (l[i] == "")
+                {
+                    l.RemoveAt(i);
+                    i--;
+                }
+            }
             if (Calculate(l, N, M))
             {
                 textBox2.Text = text;
@@ -57,7 +56,7 @@ namespace Homework
                 textBox1.Text = $"{N}\r\n{M}\r\n{finalstring}";
             }
             else
-            { 
+            {
                 textBox2.Text = "Некорректный ввод"; 
             }
 
@@ -86,7 +85,6 @@ namespace Homework
             {
                 Map[N + 1] += ".";
             }
-
             for (int i = 1; i < N + 1; i++)
             {
                 for (int j = 1; j < M + 1; j++)
@@ -142,18 +140,23 @@ namespace Homework
         }
         private static bool Check_input(List<string> l, int N, int M)
         {
-            int count = 0;
-            foreach(var line in l)
+            if (l.Count() != N || N < 3 || N > 100)
             {
-                count += line.Length;
-                if (!line.Contains(".") && !line.Contains("#"))
+                return false;
+            }
+            foreach (var line in l)
+            {
+                if (line.Length != M || M < 3 || M > 100)
                 {
                     return false;
                 }
-            }
-            if(count != N * M || count < 9 || count > 10000)
-            {
-                return false;
+                for (int i = 0; i < line.Length; i++)
+                {
+                    if (line[i] != '.' && line[i] != '#')
+                    {
+                        return false;
+                    }
+                }
             }
             return true;
         }

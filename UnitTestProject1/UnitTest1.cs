@@ -41,6 +41,36 @@ namespace UnitTestProject1
             Assert.AreEqual(expectedValue, Value);
         }
         [TestMethod]
+        public void TestMethod4()
+        {
+            List<string> testlist = new List<string>() { ".......", ".......", ".......", ".......", ".###...", ".###...", "......." };
+            int testN = 6;
+            int testM = 7;
+            bool expectedValue = false;
+            bool Value = Form1.Calculate(testlist, testN, testM);
+            Assert.AreEqual(expectedValue, Value);
+        }
+        [TestMethod]
+        public void TestMethod5()
+        {
+            List<string> testlist = new List<string>() { ".", "......", ".......", ".......", ".###...", ".###...", "......." };
+            int testN = 6;
+            int testM = 7;
+            bool expectedValue = false;
+            bool Value = Form1.Calculate(testlist, testN, testM);
+            Assert.AreEqual(expectedValue, Value);
+        }
+        [TestMethod]
+        public void TestMethod6()
+        {
+            List<string> testlist = new List<string>() { "...", ".#.", "", "..." };
+            int testN = 3;
+            int testM = 3;
+            bool expectedValue = false;
+            bool Value = Form1.Calculate(testlist, testN, testM);
+            Assert.AreEqual(expectedValue, Value);
+        }
+        [TestMethod]
         public void TestEmptyMap()
         {
             List<string> testlist = new List<string>() { "" };
