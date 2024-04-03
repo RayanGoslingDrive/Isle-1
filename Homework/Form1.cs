@@ -22,37 +22,51 @@ namespace Homework
         private float formheight = 0;
         private float formwidth = 0;
         private static List<string> lines = new List<string>();
-        
+        public static string text = "";
+
         private void button1_Click(object sender, EventArgs e)
         {
             textBox2.Clear();
 
             int N;
-            int M;
-            string[] s = textBox1.Text.Split('\n');
-            List<string> l = s.ToList();
-            N = Convert.ToInt32(l[0]);
-            l.RemoveAt(0);
-            M = Convert.ToInt32(l[0]);
-            l.RemoveAt(0);
-            textBox2.Text = Calculate(l, N, M);
-            string finalstring = "";
-            foreach (string str in l)
+            int M;     
+            string[] s = textBox1.Text.Replace("\r","").Split('\n');
+            List<string> l = new List<string>();
+            try
             {
-                finalstring += str + "\r\n";
+                N = Convert.ToInt32(s[0]);
+                M = Convert.ToInt32(s[1]);
+                for (int i = 2; i < N + 2; i++)
+                {
+                    l.Add(s[i]);
+                }
+            }catch(Exception ex) 
+            {
+                textBox2.Text = ex.Message;
+                return;
             }
-            textBox1.Text = $"{N}\r\n{M}\r\n{finalstring}";
+            
+            if (Calculate(l, N, M))
+            {
+                textBox2.Text = text;
+                string finalstring = "";
+                foreach (string str in l)
+                {
+                    finalstring += str + "\r\n";
+                }
+                textBox1.Text = $"{N}\r\n{M}\r\n{finalstring}";
+            }
+            else
+            { 
+                textBox2.Text = "Некорректный ввод"; 
+            }
 
         }
-        public static string Calculate(List<string> l, int N, int M)
+        public static bool Calculate(List<string> l, int N, int M)
         {
             lines.Clear();
-            for (int i = 0; i < l.Count; i++)
-            {
-                l[i] = l[i].Replace("\r", "");
-            }
-
-            if (!Check_input(l, N, M)) { return null; }
+            text = "";
+            if (!Check_input(l, N, M)) { return false; }
 
 
             List<Coordinate> coordinates = new List<Coordinate>();
@@ -85,8 +99,15 @@ namespace Homework
                 }
             }
             int y, x;
-            y = coordinates[0].y;
-            x = coordinates[0].x;
+            try
+            {
+                y = coordinates[0].y;
+                x = coordinates[0].x;
+            }
+            catch
+            {
+                return false;
+            }
             int[] test = { 0, 1, -1 };
             bool found = false;
             while (coordinates.Count != 0)
@@ -113,35 +134,26 @@ namespace Homework
                     }
                 }
             }
-            string finalstringtb2 = "";
             foreach (string str in lines)
             {
-                finalstringtb2 += str;
+                text += str;
             }
-            return finalstringtb2;
+            return true;
         }
         private static bool Check_input(List<string> l, int N, int M)
         {
-            if (l.Count() != N || N <= 3 || N >= 100)
+            int count = 0;
+            foreach(var line in l)
             {
-                MessageBox.Show("Incorrect input");
-                return false;
-            }
-            foreach (var line in l)
-            {
-                if (line.Length != M || M <= 3 || M >= 100)
+                count += line.Length;
+                if (!line.Contains(".") && !line.Contains("#"))
                 {
-                    MessageBox.Show("Incorrect input");
                     return false;
                 }
-                for (int i = 0; i < line.Length; i++)
-                {
-                    if (line[i] != '.' && line[i] != '#')
-                    {
-                        MessageBox.Show("Incorrect input");
-                        return false;
-                    }
-                }
+            }
+            if(count != N * M || count < 9 || count > 10000)
+            {
+                return false;
             }
             return true;
         }
