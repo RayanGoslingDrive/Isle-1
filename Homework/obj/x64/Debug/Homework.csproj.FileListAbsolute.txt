@@ -1,0 +1,10 @@
+C:\Users\vsh21\source\repos\Homework\Homework\bin\x64\Debug\Homework.exe.config
+C:\Users\vsh21\source\repos\Homework\Homework\bin\x64\Debug\Homework.exe
+C:\Users\vsh21\source\repos\Homework\Homework\bin\x64\Debug\Homework.pdb
+C:\Users\vsh21\source\repos\Homework\Homework\obj\x64\Debug\Homework.csproj.AssemblyReference.cache
+C:\Users\vsh21\source\repos\Homework\Homework\obj\x64\Debug\Homework.Form1.resources
+C:\Users\vsh21\source\repos\Homework\Homework\obj\x64\Debug\Homework.Properties.Resources.resources
+C:\Users\vsh21\source\repos\Homework\Homework\obj\x64\Debug\Homework.csproj.GenerateResource.cache
+C:\Users\vsh21\source\repos\Homework\Homework\obj\x64\Debug\Homework.csproj.CoreCompileInputs.cache
+C:\Users\vsh21\source\repos\Homework\Homework\obj\x64\Debug\Homework.exe
+C:\Users\vsh21\source\repos\Homework\Homework\obj\x64\Debug\Homework.pdb
